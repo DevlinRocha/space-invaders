@@ -10,6 +10,7 @@ extends Node
 
 
 var current_score: int : set = set_score
+var current_level := 1
 
 
 func _ready() -> void:
@@ -24,7 +25,8 @@ func _on_enemy_hit() -> void:
 	for child in get_children():
 		if child.is_in_group("enemies"):
 			return
-	new_level()
+	current_level += 1
+	new_level(current_level)
 
 
 func _on_player_hit() -> void:
@@ -55,25 +57,26 @@ func set_score(value: int) -> void:
 	menu.set_score(current_score)
 
 
-func new_level() -> void:
+func new_level(rows = 1) -> void:
 	const ENEMY := preload("res://scenes/enemy.tscn")
-	for i in 11:
-		var new_enemy := ENEMY.instantiate()
-		var x := 96 * (i + 1)
-		var y := 56
-		new_enemy.global_position = Vector2(x, y)
-		new_enemy.enemy_hit.connect(_on_enemy_hit)
-		add_child(new_enemy)
+	for i in rows:
+		var y = 56 + 72 * i
+		for j in 11:
+			var new_enemy := ENEMY.instantiate()
+			var x := 96 * (j + 1)
+			new_enemy.global_position = Vector2(x, y)
+			new_enemy.enemy_hit.connect(_on_enemy_hit)
+			add_child(new_enemy)
 
 
 func game_over() -> void:
 	get_tree().paused = true
 	menu.visible = true
 	menu.game_over()
-	print("game over")
 
 
 func restart() -> void:
+	current_level = 1
 	set_score(0)
 
 	for child in get_children():
@@ -82,7 +85,7 @@ func restart() -> void:
 
 	respawn_player()
 
-	new_level()
+	new_level(current_level)
 
 	menu.visible = false
 	get_tree().paused = false

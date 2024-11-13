@@ -8,7 +8,7 @@ extends CharacterBody2D
 
 
 const HORIZONTAL_SPEED := 1
-const VERTICAL_SPEED := 88
+const VERTICAL_SPEED := 72
 
 
 var direction := Direction.RIGHT
