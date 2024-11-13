@@ -7,7 +7,7 @@
 radius = 4.0
 height = 16.0
 
-[node name="Bomb" type="Area2D"]
+[node name="Bomb" type="Area2D" groups=["projectiles"]]
 collision_layer = 16
 collision_mask = 17
 script = ExtResource("1_pjvks")

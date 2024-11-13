@@ -36,6 +36,7 @@ func _on_player_hit() -> void:
 	life_counter.get_child(0).queue_free()
 	get_tree().create_timer(3).timeout.connect(
 		func() -> void:
+			clear_level()
 			respawn_player()
 	)
 
@@ -89,3 +90,9 @@ func restart() -> void:
 
 	menu.visible = false
 	get_tree().paused = false
+
+
+func clear_level() -> void:
+	for child in get_children():
+		if child.is_in_group("projectiles"):
+			child.queue_free()
