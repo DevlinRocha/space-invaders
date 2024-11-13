@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://ws1pqxpf4fnl"]
+
+[ext_resource type="Texture2D" uid="uid://dki0btb5qkxdh" path="res://assets/Enemy.svg" id="1_5n4dv"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_apmx4"]
+[ext_resource type="PackedScene" uid="uid://g0fqpahubu7b" path="res://scenes/bomb_launcher.tscn" id="3_odgyw"]
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 25
+script = ExtResource("1_apmx4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_5n4dv")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-32, 24, 32, 24, 0, -32)
+
+[node name="LeftRayCast" type="RayCast2D" parent="."]
+target_position = Vector2(-48, 0)
+collision_mask = 8
+
+[node name="RightRayCast" type="RayCast2D" parent="."]
+target_position = Vector2(48, 0)
+collision_mask = 8
+
+[node name="BombLauncher" parent="." instance=ExtResource("3_odgyw")]
+position = Vector2(0, 16)

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://g0fqpahubu7b"]
+
+[ext_resource type="Script" path="res://scripts/bomb_launcher.gd" id="1_bwsv5"]
+[ext_resource type="PackedScene" uid="uid://c4xgpcq2ibav4" path="res://scenes/fire_rate.tscn" id="1_vxdri"]
+
+[node name="BombLauncher" type="Node2D"]
+script = ExtResource("1_bwsv5")
+
+[node name="Fire Rate" parent="." instance=ExtResource("1_vxdri")]
+wait_time = 3.0

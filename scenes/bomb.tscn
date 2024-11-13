@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://vx6gj58fvi1t"]
+
+[ext_resource type="Texture2D" uid="uid://dyp4vfylbwxoc" path="res://assets/Bomb.svg" id="1_cu1h8"]
+[ext_resource type="Script" path="res://scripts/bomb.gd" id="1_pjvks"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ab227"]
+radius = 4.0
+height = 16.0
+
+[node name="Bomb" type="Area2D"]
+collision_layer = 16
+collision_mask = 17
+script = ExtResource("1_pjvks")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_cu1h8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ab227")

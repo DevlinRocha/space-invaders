@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi5ism6mogm28"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_cilr2"]
+[ext_resource type="Texture2D" uid="uid://72ijgrt86wgl" path="res://assets/Ship.svg" id="1_tfdyp"]
+[ext_resource type="PackedScene" uid="uid://b4tqp3l1oqsen" path="res://scenes/rocket_launcher.tscn" id="3_veusx"]
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 6
+script = ExtResource("1_cilr2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tfdyp")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-33, 32, -23, 32, 0, 17, 23, 32, 33, 32, 0, -34)
+
+[node name="Rocket Launcher" parent="." instance=ExtResource("3_veusx")]
+position = Vector2(0, -31)
