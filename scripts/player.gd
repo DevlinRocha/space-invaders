@@ -8,6 +8,9 @@ extends CharacterBody2D
 const SPEED := 320.0
 
 
+signal player_hit
+
+
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("left", "right")
 	var shooting := Input.is_action_pressed("shoot")

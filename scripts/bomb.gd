@@ -10,8 +10,10 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-	body.queue_free()
-	queue_free()
+	if body is Player:
+		body.queue_free()
+		body.player_hit.emit()
+		queue_free()
 
 
 func _physics_process(delta: float) -> void:
