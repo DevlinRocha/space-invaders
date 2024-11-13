@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var bomb_launcher: Node2D = $BombLauncher
 @onready var left_ray_cast: RayCast2D = $LeftRayCast
 @onready var right_ray_cast: RayCast2D = $RightRayCast
+@onready var bottom_ray_cast: RayCast2D = $BottomRayCast
 
 
 const HORIZONTAL_SPEED := 1
@@ -35,8 +36,9 @@ func _physics_process(delta: float) -> void:
 				tween.tween_property(child, "global_position", child.global_position + Vector2(0, VERTICAL_SPEED), 1)
 				child.direction = Direction.RIGHT
 		pass
+	if not bottom_ray_cast.is_colliding():
+		bomb_launcher.fire()
 
-	bomb_launcher.fire()
 	move()
 
 
