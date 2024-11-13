@@ -21,8 +21,8 @@ func _ready() -> void:
 		quit.pressed.connect(_on_quit_pressed)
 
 
-func _process(delta: float) -> void:
-	if not is_game_over and Input.is_action_just_pressed("pause"):
+func _input(event: InputEvent) -> void:
+	if not is_game_over and event.is_action_pressed("pause"):
 		menu_label.text = "Game Paused"
 		get_tree().paused = !get_tree().paused
 		visible = !visible
