@@ -22,14 +22,18 @@ enum Direction { LEFT, RIGHT }
 
 func _physics_process(delta: float) -> void:
 	if right_ray_cast.is_colliding():
-		var tween := create_tween()
-		tween.tween_property(self, "global_position", global_position + Vector2(0, VERTICAL_SPEED), 1)
-		direction = Direction.LEFT
+		for child in get_parent().get_children():
+			if child.is_in_group("enemies"):
+				var tween := create_tween()
+				tween.tween_property(child, "global_position", child.global_position + Vector2(0, VERTICAL_SPEED), 1)
+				child.direction = Direction.LEFT
 		pass
 	if left_ray_cast.is_colliding():
-		var tween := create_tween()
-		tween.tween_property(self, "global_position", global_position + Vector2(0, VERTICAL_SPEED), 1)
-		direction = Direction.RIGHT
+		for child in get_parent().get_children():
+			if child.is_in_group("enemies"):
+				var tween := create_tween()
+				tween.tween_property(child, "global_position", child.global_position + Vector2(0, VERTICAL_SPEED), 1)
+				child.direction = Direction.RIGHT
 		pass
 
 	bomb_launcher.fire()
