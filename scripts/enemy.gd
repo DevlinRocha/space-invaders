@@ -14,6 +14,9 @@ const VERTICAL_SPEED := 88
 var direction := Direction.RIGHT
 
 
+signal enemy_hit
+
+
 enum Direction { LEFT, RIGHT }
 
 

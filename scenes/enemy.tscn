@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_apmx4"]
 [ext_resource type="PackedScene" uid="uid://g0fqpahubu7b" path="res://scenes/bomb_launcher.tscn" id="3_odgyw"]
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 2
 collision_mask = 25
 script = ExtResource("1_apmx4")
