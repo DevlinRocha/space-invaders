@@ -32,6 +32,7 @@ func _physics_process(delta: float) -> void:
 	bomb_launcher.fire()
 	move()
 
+
 func move() -> void:
 	if direction == Direction.LEFT:
 		position = position + Vector2(-HORIZONTAL_SPEED, 0)

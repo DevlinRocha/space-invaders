@@ -1,3 +1,4 @@
+class_name Rocket
 extends Area2D
 
 

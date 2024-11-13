@@ -1,3 +1,4 @@
+class_name Bomb
 extends Area2D
 
 
