@@ -47,11 +47,14 @@ position = Vector2(960, 56)
 [node name="Enemy11" parent="." instance=ExtResource("2_toaut")]
 position = Vector2(1056, 56)
 
-[node name="Killzone" parent="." instance=ExtResource("3_pl8p0")]
+[node name="TopKillzone" parent="." instance=ExtResource("3_pl8p0")]
 
-[node name="Wall" parent="." instance=ExtResource("4_llxnx")]
+[node name="BottomKillzone" parent="." instance=ExtResource("3_pl8p0")]
+position = Vector2(0, 664)
 
-[node name="Wall2" parent="." instance=ExtResource("4_llxnx")]
+[node name="LeftWall" parent="." instance=ExtResource("4_llxnx")]
+
+[node name="RightWall" parent="." instance=ExtResource("4_llxnx")]
 position = Vector2(1168, 0)
 
 [node name="UI" type="CanvasLayer" parent="."]

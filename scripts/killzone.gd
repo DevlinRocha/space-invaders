@@ -2,9 +2,9 @@ extends Area2D
 
 
 func _ready() -> void:
-	if not body_exited.is_connected(_on_body_exited):
-		body_exited.connect(_on_body_exited)
+	if not area_exited.is_connected(_on_area_exited):
+		area_exited.connect(_on_area_exited)
 
 
-func _on_body_exited(body: Node2D) -> void:
-	body.queue_free()
+func _on_area_exited(area: Area2D) -> void:
+	area.queue_free()
