@@ -60,11 +60,11 @@ func set_score(value: int) -> void:
 
 func new_level(rows = 1) -> void:
 	const ENEMY := preload("res://scenes/enemy.tscn")
-	for i in rows:
-		var y = 56 + 72 * i
-		for j in 11:
+	for row in rows:
+		var y = 56 + 72 * row
+		for column in 11:
 			var new_enemy := ENEMY.instantiate()
-			var x := 96 * (j + 1)
+			var x := 96 * (column + 1)
 			new_enemy.global_position = Vector2(x, y)
 			new_enemy.enemy_hit.connect(_on_enemy_hit)
 			add_child(new_enemy)
