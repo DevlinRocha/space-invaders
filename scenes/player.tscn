@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b4tqp3l1oqsen" path="res://scenes/rocket_launcher.tscn" id="3_veusx"]
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 6
+collision_mask = 10
 script = ExtResource("1_cilr2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
