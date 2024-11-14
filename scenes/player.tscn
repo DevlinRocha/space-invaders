@@ -12,7 +12,7 @@ script = ExtResource("1_cilr2")
 texture = ExtResource("1_tfdyp")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-34, 32, -23, 32, 0, 17, 23, 32, 34, 32, 0, -38)
+polygon = PackedVector2Array(-34, 32, -23, 32, 0, 17, 23, 32, 34, 32, 0, -34)
 
 [node name="Rocket Launcher" parent="." instance=ExtResource("3_veusx")]
 position = Vector2(0, -31)
