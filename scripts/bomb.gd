@@ -11,7 +11,6 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body is Player:
-		body.queue_free()
 		body.hit.emit()
 		queue_free()
 
