@@ -8,7 +8,11 @@ extends CharacterBody2D
 const SPEED := 320.0
 
 
-signal player_hit
+signal hit
+
+
+func _ready() -> void:
+	hit.connect(_on_hit)
 
 
 func _physics_process(delta: float) -> void:
@@ -24,3 +28,13 @@ func _physics_process(delta: float) -> void:
 		rocket_launcher.fire()
 
 	move_and_slide()
+
+
+func _on_hit() -> void:
+	explode()
+
+
+func explode() -> void:
+	const EXPLOSION := preload("res://effects/explosion.tscn")
+	var new_explosion := EXPLOSION.instantiate()
+	new_explosion.explode(self)

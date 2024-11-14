@@ -12,10 +12,8 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body is Enemy:
-		body.queue_free()
 		explode()
-		await body.tree_exited
-		body.enemy_hit.emit()
+		body.hit.emit()
 
 
 func _on_area_entered(area: Area2D) -> void:
@@ -30,7 +28,4 @@ func _physics_process(delta: float) -> void:
 func explode() -> void:
 	const EXPLOSION := preload("res://effects/explosion.tscn")
 	var new_explosion := EXPLOSION.instantiate()
-	add_sibling(new_explosion)
-	new_explosion.global_position = global_position
-	new_explosion.emitting = true
-	queue_free()
+	new_explosion.explode(self)

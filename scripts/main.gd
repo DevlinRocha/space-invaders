@@ -19,7 +19,7 @@ func _ready() -> void:
 	restart()
 
 
-func _on_enemy_hit() -> void:
+func _on_enemy_defeated() -> void:
 	set_score(current_score + 1)
 
 	for child in get_children():
@@ -45,7 +45,7 @@ func respawn_player() -> void:
 	const PLAYER := preload("res://scenes/player.tscn")
 	var new_player := PLAYER.instantiate()
 	new_player.global_position = Vector2(576, 544)
-	new_player.player_hit.connect(_on_player_hit)
+	new_player.hit.connect(_on_player_hit)
 	add_child(new_player)
 
 
@@ -66,7 +66,7 @@ func new_level(rows = 1) -> void:
 			var new_enemy := ENEMY.instantiate()
 			var x := 96 * (column + 1)
 			new_enemy.global_position = Vector2(x, y)
-			new_enemy.enemy_hit.connect(_on_enemy_hit)
+			new_enemy.defeated.connect(_on_enemy_defeated)
 			add_child(new_enemy)
 
 
