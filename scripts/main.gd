@@ -82,6 +82,7 @@ func game_over() -> void:
 func restart() -> void:
 	current_level = 1
 	set_score(0)
+	life_counter.reset()
 
 	for child in get_children():
 		if child is Player or child is Enemy or child is Rocket or child is Bomb:
