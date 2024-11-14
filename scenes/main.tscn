@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bn6t82ttow7vt"]
+[gd_scene load_steps=9 format=3 uid="uid://bn6t82ttow7vt"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_dn16x"]
 [ext_resource type="PackedScene" uid="uid://bi5ism6mogm28" path="res://scenes/player.tscn" id="1_qv68l"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://pnktu1xl548j" path="res://scenes/killzone.tscn" id="3_pl8p0"]
 [ext_resource type="PackedScene" uid="uid://dkpytrxg3qn2h" path="res://scenes/wall.tscn" id="4_llxnx"]
 [ext_resource type="Texture2D" uid="uid://72ijgrt86wgl" path="res://assets/Ship.svg" id="5_02hv2"]
+[ext_resource type="Script" path="res://scripts/life_counter.gd" id="6_iqscb"]
 [ext_resource type="PackedScene" uid="uid://8ki2f46xvpys" path="res://scenes/menu.tscn" id="7_8kbtb"]
 
 [node name="Main" type="Node"]
@@ -71,6 +72,7 @@ offset_right = 256.0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
 theme_override_constants/separation = 16
+script = ExtResource("6_iqscb")
 
 [node name="LifeCount" type="TextureRect" parent="UI/LifeCounter"]
 layout_mode = 2

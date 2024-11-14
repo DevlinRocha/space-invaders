@@ -12,6 +12,8 @@ extends Node
 
 var current_score: int : set = set_score
 var current_level := 1
+var new_level_timer: SceneTreeTimer
+var respawn_player_timer: SceneTreeTimer
 
 
 func _ready() -> void:
@@ -29,7 +31,8 @@ func _on_enemy_defeated() -> void:
 		if child.is_in_group("enemies"):
 			return
 	current_level += 1
-	get_tree().create_timer(3).timeout.connect(new_level.bind(current_level))
+	new_level_timer = get_tree().create_timer(3, false)
+	new_level_timer.timeout.connect(new_level.bind(current_level))
 
 
 func _on_player_hit() -> void:
@@ -37,14 +40,13 @@ func _on_player_hit() -> void:
 		return game_over()
 
 	life_counter.get_child(0).queue_free()
-	get_tree().create_timer(3).timeout.connect(
-		func() -> void:
-			clear_level()
-			respawn_player()
-	)
+	respawn_player_timer = get_tree().create_timer(3, false)
+	respawn_player_timer.timeout.connect(respawn_player)
 
 
 func respawn_player() -> void:
+	clear_level()
+
 	const PLAYER := preload("res://scenes/player.tscn")
 	var new_player := PLAYER.instantiate()
 	new_player.global_position = Vector2(576, 544)
@@ -80,12 +82,16 @@ func game_over() -> void:
 
 
 func restart() -> void:
+	if new_level_timer:
+		new_level_timer.timeout.disconnect(new_level)
+	if respawn_player_timer:
+		respawn_player_timer.timeout.disconnect(respawn_player)
 	current_level = 1
 	set_score(0)
 	life_counter.reset()
 
 	for child in get_children():
-		if child is Player or child is Enemy or child is Rocket or child is Bomb:
+		if child is Player or child is Enemy or child.is_in_group("projectiles"):
 			child.queue_free()
 
 	respawn_player()
