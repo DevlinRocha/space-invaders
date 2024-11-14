@@ -6,10 +6,10 @@ extends CharacterBody2D
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
 
 
-const VERTICAL_SPEED := 72
+const VERTICAL_SPEED := 72.0
 
 
-var horizontal_speed := 1
+var horizontal_speed := 1.0
 var is_colliding := false
 
 signal hit
@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 		bomb_launcher.fire()
 
 	var collision := move_and_collide(Vector2(horizontal_speed, 0))
-	if not collision:
+	if not is_colliding:
 		set_collision_mask_value(4, true)
 
 	if collision:
@@ -49,14 +49,16 @@ func on_collide(collider: Node) -> void:
 	if collider is StaticBody2D:
 		for child in get_parent().get_children():
 			if child.is_in_group("enemies"):
+				child.horizontal_speed *= -1.0
 				child.set_collision_mask_value(4, false)
+
 				var tween := create_tween()
-				tween.tween_property(child, "global_position", child.global_position + Vector2(0, VERTICAL_SPEED), 1).finished.connect(
+				tween.tween_property(child, "global_position", child.global_position + Vector2(0, VERTICAL_SPEED), VERTICAL_SPEED / (abs(horizontal_speed) * 60.0)).finished.connect(
 					func() -> void:
-						child.horizontal_speed *= -1
 						child.set_collision_mask_value(4, true)
 						is_colliding = false
 				)
 	if collider is Player:
 		hit.emit()
 		collider.hit.emit()
+		is_colliding = false
