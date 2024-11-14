@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bn6t82ttow7vt"]
+[gd_scene load_steps=10 format=3 uid="uid://bn6t82ttow7vt"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_dn16x"]
 [ext_resource type="PackedScene" uid="uid://bi5ism6mogm28" path="res://scenes/player.tscn" id="1_qv68l"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://72ijgrt86wgl" path="res://assets/Ship.svg" id="5_02hv2"]
 [ext_resource type="Script" path="res://scripts/life_counter.gd" id="6_iqscb"]
 [ext_resource type="PackedScene" uid="uid://8ki2f46xvpys" path="res://scenes/menu.tscn" id="7_8kbtb"]
+[ext_resource type="PackedScene" uid="uid://dq50abqfgxl2v" path="res://scenes/mothership.tscn" id="9_rnn7r"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_dn16x")
@@ -15,40 +16,48 @@ script = ExtResource("1_dn16x")
 [node name="Player" parent="." instance=ExtResource("1_qv68l")]
 position = Vector2(576, 544)
 
+[node name="Mothership" parent="." instance=ExtResource("9_rnn7r")]
+position = Vector2(1248, 16)
+
+[node name="Mothership2" parent="." instance=ExtResource("9_rnn7r")]
+position = Vector2(-96, 16)
+
 [node name="Enemy" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(96, 56)
+position = Vector2(96, 72)
 
 [node name="Enemy2" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(192, 56)
+position = Vector2(192, 72)
 
 [node name="Enemy3" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(288, 56)
+position = Vector2(288, 72)
 
 [node name="Enemy4" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(384, 56)
+position = Vector2(384, 72)
 
 [node name="Enemy5" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(480, 56)
+position = Vector2(480, 72)
 
 [node name="Enemy6" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(576, 56)
+position = Vector2(576, 72)
 
 [node name="Enemy7" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(672, 56)
+position = Vector2(672, 72)
 
 [node name="Enemy8" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(768, 56)
+position = Vector2(768, 72)
 
 [node name="Enemy9" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(864, 56)
+position = Vector2(864, 72)
 
 [node name="Enemy10" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(960, 56)
+position = Vector2(960, 72)
 
 [node name="Enemy11" parent="." instance=ExtResource("2_toaut")]
-position = Vector2(1056, 56)
+position = Vector2(1056, 72)
 
 [node name="TopKillzone" parent="." instance=ExtResource("3_pl8p0")]
+monitoring = false
+monitorable = false
 
 [node name="BottomKillzone" parent="." instance=ExtResource("3_pl8p0")]
 unique_name_in_owner = true

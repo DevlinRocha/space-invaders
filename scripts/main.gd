@@ -12,8 +12,10 @@ extends Node
 
 var current_score: int : set = set_score
 var current_level := 1
+var mothership_threshold := 16
 var new_level_timer: SceneTreeTimer
 var respawn_player_timer: SceneTreeTimer
+var mothership_roll_timer: SceneTreeTimer
 
 
 func _ready() -> void:
@@ -24,13 +26,15 @@ func _ready() -> void:
 	restart()
 
 
-func _on_enemy_defeated() -> void:
-	set_score(current_score + 1)
+func _on_enemy_defeated(points: int) -> void:
+	set_score(current_score + points)
 
 	for child in get_children():
 		if child.is_in_group("enemies"):
 			return
+
 	current_level += 1
+	mothership_threshold -= 1
 	new_level_timer = get_tree().create_timer(3, false)
 	new_level_timer.timeout.connect(new_level.bind(current_level))
 
@@ -66,7 +70,7 @@ func set_score(value: int) -> void:
 func new_level(rows = 1) -> void:
 	const ENEMY := preload("res://scenes/enemy.tscn")
 	for row in rows:
-		var y = 56 + 72 * row
+		var y = 72 * (row + 1)
 		for column in 11:
 			var new_enemy := ENEMY.instantiate()
 			var x := 96 * (column + 1)
@@ -86,12 +90,17 @@ func restart() -> void:
 		new_level_timer.timeout.disconnect(new_level)
 	if respawn_player_timer:
 		respawn_player_timer.timeout.disconnect(respawn_player)
+	if mothership_roll_timer:
+		mothership_roll_timer.timeout.disconnect(roll_mothership)
 	current_level = 1
+	mothership_threshold = 16
 	set_score(0)
 	life_counter.reset()
+	mothership_roll_timer = get_tree().create_timer(4, false)
+	mothership_roll_timer.timeout.connect(roll_mothership)
 
 	for child in get_children():
-		if child is Player or child is Enemy or child.is_in_group("projectiles"):
+		if child is Player or child.is_in_group("enemies") or child.is_in_group("projectiles"):
 			child.queue_free()
 
 	respawn_player()
@@ -106,3 +115,18 @@ func clear_level() -> void:
 	for child in get_children():
 		if child.is_in_group("projectiles"):
 			child.queue_free()
+
+
+func roll_mothership() -> void:
+	var roll := randi_range(0, mothership_threshold)
+	if roll >= mothership_threshold - 1:
+		const MOTHERSHIP := preload("res://scenes/mothership.tscn")
+		var new_mothership := MOTHERSHIP.instantiate()
+		new_mothership.defeated.connect(_on_enemy_defeated)
+		add_child(new_mothership)
+		mothership_roll_timer = get_tree().create_timer(16, false)
+		mothership_roll_timer.timeout.connect(roll_mothership)
+		return
+
+	mothership_roll_timer = get_tree().create_timer(4, false)
+	mothership_roll_timer.timeout.connect(roll_mothership)

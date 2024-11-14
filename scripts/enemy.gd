@@ -32,7 +32,7 @@ func _on_hit() -> void:
 	queue_free()
 	tree_exited.connect(
 		func() -> void:
-			defeated.emit()
+			defeated.emit(1)
 	)
 
 
@@ -42,7 +42,7 @@ func on_collide(collider: Node) -> void:
 			return
 
 		for child in get_parent().get_children():
-			if child.is_in_group("enemies"):
+			if child is Enemy:
 				var new_horizontal_speed = child.horizontal_speed * -1.0
 				child.is_colliding = true
 				child.set_collision_mask_value(4, false)

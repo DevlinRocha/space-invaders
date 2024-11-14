@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dq50abqfgxl2v"]
+
+[ext_resource type="Script" path="res://scripts/mothership.gd" id="1_0kfmd"]
+[ext_resource type="Texture2D" uid="uid://rdh3yllm2lef" path="res://assets/Mothership.svg" id="1_cx632"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71wb0"]
+size = Vector2(64, 32)
+
+[node name="Mothership" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_0kfmd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cx632")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_71wb0")
