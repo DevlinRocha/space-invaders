@@ -2,6 +2,7 @@ extends Node
 
 
 @onready var life_counter: HBoxContainer = %LifeCounter
+@onready var bottom_killzone: Area2D = %BottomKillzone
 @onready var score: Label = %Score
 @onready var high_score: Label = %HighScore
 @onready var menu: ColorRect = %Menu
@@ -14,6 +15,8 @@ var current_level := 1
 
 
 func _ready() -> void:
+	if not bottom_killzone.game_over.is_connected(game_over):
+		bottom_killzone.game_over.connect(game_over)
 	if not menu.game_restart.is_connected(restart):
 		menu.game_restart.connect(restart)
 	restart()
