@@ -38,12 +38,13 @@ func _on_quit_pressed() -> void:
 
 
 func set_score(value: int) -> void:
-	var current_score := value
-	var new_score := str(current_score)
-	score.text = new_score
-	if current_score > int(high_score.text):
-		high_score.text = new_score
+	score.text = str(value)
+	if value > int(high_score.text):
+		set_high_score(value)
 
+
+func set_high_score(value: int) -> void:
+	high_score.text = str(value)
 
 func game_over() -> void:
 	is_game_over = true

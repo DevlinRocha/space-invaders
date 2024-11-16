@@ -3,14 +3,15 @@ extends Node
 
 @onready var life_counter: HBoxContainer = %LifeCounter
 @onready var bottom_killzone: Area2D = %BottomKillzone
-@onready var score: Label = %Score
-@onready var high_score: Label = %HighScore
+@onready var score_label: Label = %Score
+@onready var high_score_label: Label = %HighScore
 @onready var menu: ColorRect = %Menu
 @onready var menu_score: Label = %MenuScore
 @onready var menu_high_score: Label = %MenuHighScore
 
 
 var current_score: int : set = set_score
+var high_score: int : set = set_high_score
 var current_level := 1
 var mothership_threshold := 16
 var new_level_timer: SceneTreeTimer
@@ -19,6 +20,8 @@ var mothership_roll_timer: SceneTreeTimer
 
 
 func _ready() -> void:
+	load_score()
+
 	if not bottom_killzone.game_over.is_connected(game_over):
 		bottom_killzone.game_over.connect(game_over)
 	if not menu.game_restart.is_connected(restart):
@@ -61,10 +64,15 @@ func respawn_player() -> void:
 func set_score(value: int) -> void:
 	current_score = value
 	var new_score := str(current_score)
-	score.text = new_score
-	if current_score > int(high_score.text):
-		high_score.text = new_score
+	score_label.text = new_score
+	if current_score > int(high_score_label.text):
+		set_high_score(current_score)
 	menu.set_score(current_score)
+
+
+func set_high_score(value: int) -> void:
+	high_score_label.text = str(current_score)
+	menu.set_high_score(current_score)
 
 
 func new_level(rows = 1) -> void:
@@ -80,9 +88,26 @@ func new_level(rows = 1) -> void:
 
 
 func game_over() -> void:
+	save_score()
 	get_tree().paused = true
 	menu.visible = true
 	menu.game_over()
+
+
+func save_score() -> void:
+	var save_file := FileAccess.open("user://savegame.save", FileAccess.WRITE_READ)
+	if high_score > current_score:
+		return
+
+	save_file.store_line(str(current_score))
+
+
+func load_score() -> void:
+	if not FileAccess.file_exists("user://savegame.save"):
+		return
+
+	var save_file := FileAccess.open("user://savegame.save", FileAccess.READ)
+	menu.set_high_score(int(save_file.get_as_text()))
 
 
 func restart() -> void:
